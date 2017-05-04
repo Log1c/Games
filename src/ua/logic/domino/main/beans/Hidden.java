@@ -1,31 +1,25 @@
 package ua.logic.domino.main.beans;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
-public class Deck {
-    private static final int MAX_BONE = 6;
+public class Hidden {
     private static final int START_COUNT_BONES = 7;
 
-    private List<Bone> snake = new ArrayList<>();
+    private final Random random = new Random();
     private List<Bone> hidden = new ArrayList<>();
 
-    final Random random = new Random();
-
-    public Deck() {
-        fillHidden();
-//        printHidden();
+    public Hidden() {
+        hidden.addAll(Arrays.asList(Bone.values()));
     }
 
     public Bone getBone() {
-        return hidden.get(random.nextInt(hidden.size()));
-    }
+        Bone bone = hidden.get(random.nextInt(hidden.size()));
+        hidden.remove(bone);
 
-    public boolean isFish() {
-        return false;
-    }
-
-    private void fillHidden() {
-        hidden.addAll(Arrays.asList(Bone.values()));
+        return bone;
     }
 
     public void printHidden() {
@@ -37,6 +31,11 @@ public class Deck {
         for (int i = 0; i < START_COUNT_BONES; i++) {
             result.add(getBone());
         }
+
         return result;
+    }
+
+    public boolean isEmpty() {
+        return hidden.isEmpty();
     }
 }

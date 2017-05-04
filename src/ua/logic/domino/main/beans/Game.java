@@ -4,21 +4,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
-    private Deck deck;
+    private Hidden hidden;
+    private Snake snake;
     private List<Player> players = new ArrayList<>();
     private List<Turn> turns = new ArrayList<>();
 
-    public Game(Deck deck, List<Player> players) {
-        this.deck = deck;
+    public Game(Hidden hidden, Snake snake, List<Player> players) {
+        this.hidden = hidden;
+        this.snake = snake;
         this.players = players;
+        initPlayers();
+    }
+
+    private void initPlayers() {
+        for (Player player : players) {
+            player.setGame(this);
+        }
     }
 
     public Bone takeBone() {
-        return deck.getBone();
+        return hidden.getBone();
     }
 
     public boolean isFinish() {
-        if (deck.isFish()) {
+        if (snake.isFish()) {
             return true;
         }
 
@@ -47,10 +56,23 @@ public class Game {
         int startPlayer = players.indexOf(getFirst());
         while (!isFinish()) {
             player = players.get(startPlayer++);
-            player.play();
+            Turn turn = player.play();
+            turns.add(turn);
+            if (turn.getBone() != null) {
+                snake.addBone(turn.getBone(), turn.getLinkType());
+            }
+
             if (startPlayer == players.size()) {
                 startPlayer = 0;
             }
         }
+    }
+
+    public Snake getSnake() {
+        return snake;
+    }
+
+    public boolean isHiddenEmpty() {
+        return hidden.isEmpty();
     }
 }

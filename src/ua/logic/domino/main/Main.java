@@ -1,27 +1,22 @@
 package ua.logic.domino.main;
 
-import ua.logic.domino.main.beans.Deck;
-import ua.logic.domino.main.beans.Game;
-import ua.logic.domino.main.beans.Player;
+import ua.logic.domino.main.beans.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        Deck deck = new Deck();
-
-        Player player1 = new Player("Smit", deck.getStartHand());
-        Player player2 = new Player("Neo", deck.getStartHand());
+        Hidden hidden = new Hidden();
+        Snake snake = new Snake();
+        Player player1 = new Player("Smit", hidden.getStartHand());
+        Player player2 = new Player("Neo", hidden.getStartHand());
         List<Player> players = new ArrayList<>();
-
-        player1.printHand();
-        player2.printHand();
 
         players.add(player1);
         players.add(player2);
 
-        Game game = new Game(deck, players);
+        Game game = new Game(hidden, snake, players);
         game.play();
     }
 }

@@ -12,9 +12,28 @@ public enum Bone {
     private int up;
     private int down;
 
+    public static int MAX_BONE = 6 + 1;
+
     Bone(int up, int down) {
         this.up = up;
         this.down = down;
     }
 
+    public int getUp() {
+        return up;
+    }
+
+    public int getDown() {
+        return down;
+    }
+
+    public void reverse() {
+        int temp = up;
+        up = down;
+        down = temp;
+    }
+
+    public boolean contains(int number) {
+        return (up == number || down == number);
+    }
 }
