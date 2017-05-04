@@ -31,21 +31,15 @@ public class Game {
         return false;
     }
 
-    //TODO refactor me
     private Player getFirst() {
-        List<Bone> firstBone = new ArrayList<>(players.size());
-
+        Player firstPlayer = players.get(0);
         for (Player player : players) {
-            firstBone.add(player.getMinBone());
-        }
-        Bone first = firstBone.stream().sorted().findFirst().orElse(null);
-        for (Player player : players) {
-            if (player.getHand().contains(first)) {
-                return player;
+            if (player.getMinBone().compareTo(firstPlayer.getMinBone()) < 0) {
+                firstPlayer = player;
             }
         }
 
-        throw new IllegalStateException();
+        return firstPlayer;
     }
 
     public void play() {
