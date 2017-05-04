@@ -1,4 +1,4 @@
-package ua.logic.domino;
+package ua.logic.domino.main.beans;
 
 import java.util.*;
 

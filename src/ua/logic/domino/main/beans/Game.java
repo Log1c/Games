@@ -1,4 +1,4 @@
-package ua.logic.domino;
+package ua.logic.domino.main.beans;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +22,16 @@ public class Game {
             return true;
         }
 
+        for (Player p : players) {
+            if (p.getHand().size() == 0) {
+                return true;
+            }
+        }
+
         return false;
     }
 
+    //TODO refactor me
     private Player getFirst() {
         List<Bone> firstBone = new ArrayList<>(players.size());
 
@@ -42,7 +49,14 @@ public class Game {
     }
 
     public void play() {
-        Player player = getFirst();
-        System.out.println(player);
+        Player player;
+        int startPlayer = players.indexOf(getFirst());
+        while (!isFinish()) {
+            player = players.get(startPlayer++);
+            player.play();
+            if (startPlayer == players.size()) {
+                startPlayer = 0;
+            }
+        }
     }
 }

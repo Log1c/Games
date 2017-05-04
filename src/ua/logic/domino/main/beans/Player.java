@@ -1,8 +1,7 @@
-package ua.logic.domino;
+package ua.logic.domino.main.beans;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class Player implements Playable{
     private String name;

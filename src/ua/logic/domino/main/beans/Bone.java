@@ -1,6 +1,6 @@
-package ua.logic.domino;
+package ua.logic.domino.main.beans;
 
-public enum Bones {
+public enum Bone {
     BONE11(1, 1), BONE22(2, 2), BONE33(3, 3), BONE44(4, 4), BONE55(5, 5), BONE66(6, 6), BONE00(0, 0),
     BONE65(6, 5), BONE64(6, 4), BONE63(6, 3), BONE62(6, 2), BONE61(6, 1), BONE60(6, 0),
     BONE54(5, 4), BONE53(5, 3), BONE52(5, 2), BONE51(5, 1), BONE50(5, 0),
@@ -12,7 +12,7 @@ public enum Bones {
     private int up;
     private int down;
 
-    Bones(int up, int down) {
+    Bone(int up, int down) {
         this.up = up;
         this.down = down;
     }

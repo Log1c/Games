@@ -1,4 +1,8 @@
-package ua.logic.domino;
+package ua.logic.domino.main;
+
+import ua.logic.domino.main.beans.Deck;
+import ua.logic.domino.main.beans.Game;
+import ua.logic.domino.main.beans.Player;
 
 import java.util.ArrayList;
 import java.util.List;
