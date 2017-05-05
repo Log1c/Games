@@ -8,18 +8,34 @@ public class Game {
     private Snake snake;
     private List<Player> players = new ArrayList<>();
     private List<Turn> turns = new ArrayList<>();
+    PlayerIterable playerIteratorable;
 
     public Game(Hidden hidden, Snake snake, List<Player> players) {
         this.hidden = hidden;
         this.snake = snake;
         this.players = players;
-        initPlayers();
+        init();
     }
 
-    private void initPlayers() {
+    public void play() {
+        for (Player player : playerIteratorable) {
+            if (isFinish()) {
+                break;
+            }
+            Turn turn = player.play();
+            turns.add(turn);//TODO it's Observer
+            if (turn.getBone() != null) {
+                snake.addBone(turn.getBone(), turn.getLinkType());
+            }
+        }
+    }
+
+    private void init() {
         for (Player player : players) {
             player.setGame(this);
         }
+
+        playerIteratorable = new PlayerIterable(players, getFirst());
     }
 
     public Bone takeBone() {
@@ -47,25 +63,8 @@ public class Game {
                 firstPlayer = player;
             }
         }
-
+        System.out.println("first is " + firstPlayer);
         return firstPlayer;
-    }
-
-    public void play() {
-        Player player;
-        int startPlayer = players.indexOf(getFirst());
-        while (!isFinish()) {
-            player = players.get(startPlayer++);
-            Turn turn = player.play();
-            turns.add(turn);
-            if (turn.getBone() != null) {
-                snake.addBone(turn.getBone(), turn.getLinkType());
-            }
-
-            if (startPlayer == players.size()) {
-                startPlayer = 0;
-            }
-        }
     }
 
     public Snake getSnake() {
