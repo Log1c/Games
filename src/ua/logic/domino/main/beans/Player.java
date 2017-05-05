@@ -1,7 +1,6 @@
 package ua.logic.domino.main.beans;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Player implements Playable{
@@ -20,52 +19,52 @@ public class Player implements Playable{
         Bone bone = null;
         Snake snake = game.getSnake();
         if (snake.isEmpty()) {
-            return new Turn(this, linkType, this.getMinBone());
+            Bone firstTurnBone = getMinBone();
+            hand.remove(firstTurnBone);
+            System.out.println(firstTurnBone);
+
+            return new Turn(this, linkType, firstTurnBone);
         }
-        int firstSnakeConnect = snake.getFirstConnect();
-        int lastSnakeConnect = snake.getLastConnect();
+;
         for (Bone handBone : hand) {
-            if (firstSnakeConnect == handBone.getDown()) {
-                linkType = LinkType.FIRST;
-                bone = handBone;
-            } else if (firstSnakeConnect == handBone.getUp()) {
-                handBone.reverse();
-                linkType = LinkType.FIRST;
-                bone = handBone;
-            } else if (lastSnakeConnect == handBone.getDown()) {
-                linkType = LinkType.LAST;
-                bone = handBone;
-            } else if (lastSnakeConnect == handBone.getUp()) {
-                handBone.reverse();
-                linkType = LinkType.LAST;
-                bone = handBone;
+            Turn turn = getTurn(handBone);
+            if (turn != null) {
+                hand.remove(bone);
+
+                return turn;
             }
         }
 
         while (bone == null && !game.isHiddenEmpty()) {
-            Bone boneFromHidden = game.takeBone();
+            Turn turn = getTurn(game.takeBone());
+            if (turn != null) {
+                hand.remove(bone);
 
-            if (firstSnakeConnect == boneFromHidden.getDown()) {
-                linkType = LinkType.FIRST;
-                bone = boneFromHidden;
-            } else if (firstSnakeConnect == boneFromHidden.getUp()) {
-                boneFromHidden.reverse();
-                linkType = LinkType.FIRST;
-                bone = boneFromHidden;
-            } else if (lastSnakeConnect == boneFromHidden.getDown()) {
-                linkType = LinkType.LAST;
-                bone = boneFromHidden;
-            } else if (lastSnakeConnect == boneFromHidden.getUp()) {
-                boneFromHidden.reverse();
-                linkType = LinkType.LAST;
-                bone = boneFromHidden;
+                return turn;
             }
-        }
-        if (bone != null) {
-            hand.remove(bone);
+
         }
 
-        return new Turn(this, linkType, bone);
+        return null;
+    }
+
+    private Turn getTurn(Bone bone) {
+        Snake snake = game.getSnake();
+        int leftSnakeConnect = snake.getLeftConnect();
+        int rightSnakeConnect = snake.getRightConnect();
+        if (leftSnakeConnect == bone.getDown()) {
+            return new Turn(this, LinkType.LEFT, bone);
+        } else if (leftSnakeConnect == bone.getUp()) {
+            bone.reverse();
+            return new Turn(this, LinkType.LEFT, bone);
+        } else if (rightSnakeConnect == bone.getDown()) {
+            bone.reverse();
+            return new Turn(this, LinkType.RIGHT, bone);
+        } else if (rightSnakeConnect == bone.getUp()) {
+            return new Turn(this, LinkType.RIGHT, bone);
+        }
+
+        return null;
     }
 
     @Override

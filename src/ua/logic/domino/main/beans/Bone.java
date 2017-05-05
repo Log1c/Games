@@ -36,4 +36,16 @@ public enum Bone {
     public boolean contains(int number) {
         return (up == number || down == number);
     }
+
+    public int getCost() {
+        return up + down;
+    }
+
+    public boolean isDouble() {
+        return getDown() == getUp();
+    }
+
+    public boolean isGiglet() {
+        return isDouble() || contains(0);
+    }
 }

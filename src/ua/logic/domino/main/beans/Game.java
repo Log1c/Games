@@ -6,9 +6,9 @@ import java.util.List;
 public class Game {
     private Hidden hidden;
     private Snake snake;
-    private List<Player> players = new ArrayList<>();
+    private List<Player> players = new ArrayList<>();//TODO erase it
     private List<Turn> turns = new ArrayList<>();
-    PlayerIterable playerIteratorable;
+    PlayerIterable playerLoopIteratorable;
 
     public Game(Hidden hidden, Snake snake, List<Player> players) {
         this.hidden = hidden;
@@ -18,7 +18,7 @@ public class Game {
     }
 
     public void play() {
-        for (Player player : playerIteratorable) {
+        for (Player player : playerLoopIteratorable) {
             if (isFinish()) {
                 break;
             }
@@ -28,6 +28,8 @@ public class Game {
                 snake.addBone(turn.getBone(), turn.getLinkType());
             }
         }
+        System.out.println(snake);
+        printScores();
     }
 
     private void init() {
@@ -35,7 +37,7 @@ public class Game {
             player.setGame(this);
         }
 
-        playerIteratorable = new PlayerIterable(players, getFirst());
+        playerLoopIteratorable = new PlayerIterable(players, getFirst());
     }
 
     public Bone takeBone() {
@@ -63,7 +65,7 @@ public class Game {
                 firstPlayer = player;
             }
         }
-        System.out.println("first is " + firstPlayer);
+//        System.out.println("first is " + firstPlayer);
         return firstPlayer;
     }
 
@@ -73,5 +75,26 @@ public class Game {
 
     public boolean isHiddenEmpty() {
         return hidden.isEmpty();
+    }
+
+    public int getScore(Player player) {
+        int score = 0;
+        List<Bone> playerHand = player.getHand();
+
+        if (playerHand.size() == 1 && playerHand.get(0).isGiglet()) {
+            return 10;
+        }
+
+        for (Bone bone : player.getHand()) {
+            score += bone.getCost();
+        }
+
+        return score;
+    }
+
+    public void printScores() {
+        for (Player player : players) {
+            System.out.println(player.toString() + ": " + getScore(player));
+        }
     }
 }

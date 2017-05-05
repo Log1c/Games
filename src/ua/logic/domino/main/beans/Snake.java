@@ -18,7 +18,7 @@ public class Snake {
         return false;
     }
 
-    public Bone getFirstBone() {
+    public Bone getLeftBone() {
         if (snake.size() == 0) {
             return null;
         }
@@ -26,7 +26,7 @@ public class Snake {
         return snake.get(0);
     }
 
-    public Bone getLastBone() {
+    public Bone getRightBone() {
         if (snake.size() == 0) {
             return null;
         }
@@ -34,17 +34,17 @@ public class Snake {
         return snake.get(snake.size() - 1);
     }
 
-    public int getFirstConnect() {
-        Bone bone = getFirstBone();
+    public int getLeftConnect() {
+        Bone bone = getLeftBone();
         if (bone == null) {
             throw new IllegalStateException();
         }
 
-        return bone.getDown();
+        return bone.getUp();
     }
 
-    public int getLastConnect() {
-        Bone bone = getLastBone();
+    public int getRightConnect() {
+        Bone bone = getRightBone();
         if (bone == null) {
             throw new IllegalStateException();
         }
@@ -55,7 +55,7 @@ public class Snake {
     public boolean addBone(Bone bone, LinkType linkType) {
         addToFish(bone);
 
-        if (linkType == LinkType.FIRST) {
+        if (linkType == LinkType.LEFT) {
             snake.add(0, bone);
         } else {
             snake.add(bone);
@@ -85,5 +85,15 @@ public class Snake {
 
     public boolean isEmpty() {
         return snake.isEmpty();
+    }
+
+    @Override
+    public String toString() {
+        String result = "";
+        for (Bone bone : snake) {
+            result+= " " + bone.toString();
+        }
+
+        return result;
     }
 }
