@@ -8,7 +8,7 @@ public class Game {
     private Snake snake;
     private List<Player> players = new ArrayList<>();//TODO erase it
     private List<Turn> turns = new ArrayList<>();
-    PlayerIterable playerLoopIteratorable;
+    private PlayerIterable playerIterable;
 
     public Game(Hidden hidden, Snake snake, List<Player> players) {
         this.hidden = hidden;
@@ -17,8 +17,19 @@ public class Game {
         init();
     }
 
+    public void addBoneToSnake(Player player, Snake snake, Bone bone, LinkType linkType) {
+        snake.addBone(bone, linkType);
+        player.getHand().remove(bone);
+    }
+
+    public void playFirst() {
+        Player player = getFirst();
+        addBoneToSnake(player, snake, player.getMinBone(), null);
+    }
+
     public void play() {
-        for (Player player : playerLoopIteratorable) {
+        playFirst();
+        for (Player player : playerIterable) {
             if (isFinish()) {
                 break;
             }
@@ -37,7 +48,7 @@ public class Game {
             player.setGame(this);
         }
 
-        playerLoopIteratorable = new PlayerIterable(players, getFirst());
+        playerIterable = new PlayerIterable(players, getFirst());
     }
 
     public Bone takeBone() {

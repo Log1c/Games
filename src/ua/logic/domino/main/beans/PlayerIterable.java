@@ -8,14 +8,8 @@ public class PlayerIterable implements Iterable<Player> {
     private List<Player> players;
 
     public PlayerIterable(List<Player> players, Player firstPlayer) {
-        int indexFirstPlayer = players.indexOf(firstPlayer);
-        indexFirstPlayer--;
-        if (indexFirstPlayer < 0) {
-            indexFirstPlayer = players.size() - 1;
-        }
-
         this.players = players;
-        this.index = indexFirstPlayer;
+        this.index = players.indexOf(firstPlayer);
     }
 
     @Override
