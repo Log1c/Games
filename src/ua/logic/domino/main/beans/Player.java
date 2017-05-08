@@ -14,51 +14,43 @@ public class Player implements Playable{
     }
 
     @Override
-    public Turn play() {
-        if (game.getSnake().isEmpty()) {
-            Bone firstTurnBone = getMinBone();
-            hand.remove(firstTurnBone);
-            System.out.println(firstTurnBone);
-
-            return new Turn(this, null, firstTurnBone);
-        }
-
+    public Bone play() {
         for (Bone handBone : hand) {
-            Turn turn = getTurn(handBone);
-            if (turn != null) {
-                hand.remove(turn.getBone());
+            Bone bone = getTurn(handBone);
+            if (bone != null) {
+                hand.remove(bone);
 
-                return turn;
+                return bone;
             }
         }
 
-        while (!game.isHiddenEmpty()) {
-            Turn turn = getTurn(game.takeBone());
-            if (turn != null) {
-                hand.remove(turn.getBone());
+//        while (!game.isHiddenEmpty()) {
+//            Bone bone = getTurn(game.takeBone());
+//            if (bone != null) {
+//                hand.remove(bone);
+//
+//                return bone;
+//            }
+//
+//        }
 
-                return turn;
-            }
-
-        }
-
-        return new Turn(this, null, null);
+        return null;
     }
 
-    private Turn getTurn(Bone bone) {
+    private Bone getTurn(Bone bone) {
         Snake snake = game.getSnake();
         int leftSnakeConnect = snake.getLeftConnect();
         int rightSnakeConnect = snake.getRightConnect();
         if (leftSnakeConnect == bone.getDown()) {
-            return new Turn(this, LinkType.LEFT, bone);
+            bone.reverse();
+            return bone;
         } else if (leftSnakeConnect == bone.getUp()) {
-//            bone.reverse();
-            return new Turn(this, LinkType.LEFT, bone);
+            return bone;
         } else if (rightSnakeConnect == bone.getDown()) {
-//            bone.reverse();
-            return new Turn(this, LinkType.RIGHT, bone);
+            bone.reverse();
+            return bone;
         } else if (rightSnakeConnect == bone.getUp()) {
-            return new Turn(this, LinkType.RIGHT, bone);
+            return bone;
         }
 
         return null;
@@ -80,6 +72,10 @@ public class Player implements Playable{
 
     public Bone getMinBone() {
         return hand.stream().sorted().findFirst().orElse(null);
+    }
+
+    public void addBoneToHand(Bone bone) {
+        hand.add(bone);
     }
 
     public void setGame(Game game) {

@@ -17,14 +17,14 @@ public class Game {
         init();
     }
 
-    public void addBoneToSnake(Player player, Snake snake, Bone bone, LinkType linkType) {
-        snake.addBone(bone, linkType);
+    public void addBoneToSnake(Player player, Snake snake, Bone bone) {
+        snake.addBone(bone);
         player.getHand().remove(bone);
     }
 
     public void playFirst() {
         Player player = getFirst();
-        addBoneToSnake(player, snake, player.getMinBone(), null);
+        addBoneToSnake(player, snake, player.getMinBone());
     }
 
     public void play() {
@@ -33,11 +33,20 @@ public class Game {
             if (isFinish()) {
                 break;
             }
-            Turn turn = player.play();
-            turns.add(turn);//TODO it's Observer
-            if (turn.getBone() != null) {
-                snake.addBone(turn.getBone(), turn.getLinkType());
+            Bone bone = null;
+            while (bone == null && !isHiddenEmpty()) {
+                bone = player.play();
+                if (bone == null) {
+                    player.addBoneToHand(takeBone());
+                }
             }
+            if (bone == null) {
+                continue;
+            }
+            if (!snake.addBone(bone)) {
+                throw new IllegalStateException();
+            }
+            turns.add(new Turn(player, bone));//TODO it's Observer
         }
         System.out.println(snake);
         printScores();

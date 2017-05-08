@@ -52,24 +52,22 @@ public class Snake {
         return bone.getDown();
     }
 
-    public boolean addBone(Bone bone, LinkType linkType) {
-        addToFish(bone);
-        if (snake.isEmpty()) {
-            snake.add(bone);
-            return true;
+    public boolean addBone(Bone bone) {
+        //connector only getUp()
+        int connector = bone.getUp();
+
+        if (!snake.isEmpty() && getLeftConnect() != connector && getRightConnect() != connector) {
+            return false;
         }
 
-        if (linkType == LinkType.LEFT) {
-            if (snake.get(0).getUp() != bone.getDown()) {
-                bone.reverse();
-            }
-            snake.add(0, bone);
-        } else {
-            if (snake.get(snake.size() - 1).getDown() != bone.getUp()) {
-                bone.reverse();
-            }
+        if (snake.isEmpty() || getRightConnect() == connector) {
             snake.add(bone);
+        } else if (getLeftConnect() == connector) {
+            bone.reverse();
+            snake.add(0, bone);
         }
+
+        addToFish(bone);
 
         return true;
     }
