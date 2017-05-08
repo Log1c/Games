@@ -1,9 +1,11 @@
 package ua.logic.domino.main.beans;
 
+import ua.logic.domino.main.beans.realisation.PlayerDummy;
+
 import java.util.Iterator;
 import java.util.List;
 
-public class PlayerIterable implements Iterable<Player> {
+public class PlayerIterable implements Iterable<PlayerDummy> {
     private int index;
     private List<Player> players;
 
@@ -13,7 +15,7 @@ public class PlayerIterable implements Iterable<Player> {
     }
 
     @Override
-    public Iterator<Player> iterator() {
+    public Iterator iterator() {
         return new Iterator<Player>() {
             @Override
             public boolean hasNext() {
@@ -32,4 +34,5 @@ public class PlayerIterable implements Iterable<Player> {
             }
         };
     }
+
 }

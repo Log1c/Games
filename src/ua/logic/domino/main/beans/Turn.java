@@ -1,10 +1,10 @@
 package ua.logic.domino.main.beans;
 
 public class Turn {
-    private Playable player;
+    private Player player;
     private Bone bone;
 
-    public Turn(Playable player, Bone bone) {
+    public Turn(Player player, Bone bone) {
         this.player = player;
         this.bone = bone;
     }
