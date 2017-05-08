@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Snake {
-    private List<Bone> snake = new ArrayList<>();
+    private List<Bone> snake = new ArrayList<>();//its linkedList
     private Map<Integer, Integer> sumBones = new HashMap<>(Bone.values().length);
 
     public boolean isFish() {
@@ -54,10 +54,20 @@ public class Snake {
 
     public boolean addBone(Bone bone, LinkType linkType) {
         addToFish(bone);
+        if (snake.isEmpty()) {
+            snake.add(bone);
+            return true;
+        }
 
         if (linkType == LinkType.LEFT) {
+            if (snake.get(0).getUp() != bone.getDown()) {
+                bone.reverse();
+            }
             snake.add(0, bone);
         } else {
+            if (snake.get(snake.size() - 1).getDown() != bone.getUp()) {
+                bone.reverse();
+            }
             snake.add(bone);
         }
 

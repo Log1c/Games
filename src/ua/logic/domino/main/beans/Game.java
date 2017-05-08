@@ -81,7 +81,7 @@ public class Game {
         int score = 0;
         List<Bone> playerHand = player.getHand();
 
-        if (playerHand.size() == 1 && playerHand.get(0).isGiglet()) {
+        if (playerHand.size() == 1 && playerHand.get(0).isDummy()) {
             return 10;
         }
 

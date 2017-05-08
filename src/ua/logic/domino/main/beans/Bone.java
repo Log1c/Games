@@ -45,7 +45,12 @@ public enum Bone {
         return getDown() == getUp();
     }
 
-    public boolean isGiglet() {
+    public boolean isDummy() {
         return isDouble() || contains(0);
+    }
+
+    @Override
+    public String toString() {
+        return "" + up + down + " ";
     }
 }

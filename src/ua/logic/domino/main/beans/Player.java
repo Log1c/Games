@@ -15,37 +15,34 @@ public class Player implements Playable{
 
     @Override
     public Turn play() {
-        LinkType linkType = null;
-        Bone bone = null;
-        Snake snake = game.getSnake();
-        if (snake.isEmpty()) {
+        if (game.getSnake().isEmpty()) {
             Bone firstTurnBone = getMinBone();
             hand.remove(firstTurnBone);
             System.out.println(firstTurnBone);
 
-            return new Turn(this, linkType, firstTurnBone);
+            return new Turn(this, null, firstTurnBone);
         }
-;
+
         for (Bone handBone : hand) {
             Turn turn = getTurn(handBone);
             if (turn != null) {
-                hand.remove(bone);
+                hand.remove(turn.getBone());
 
                 return turn;
             }
         }
 
-        while (bone == null && !game.isHiddenEmpty()) {
+        while (!game.isHiddenEmpty()) {
             Turn turn = getTurn(game.takeBone());
             if (turn != null) {
-                hand.remove(bone);
+                hand.remove(turn.getBone());
 
                 return turn;
             }
 
         }
 
-        return null;
+        return new Turn(this, null, null);
     }
 
     private Turn getTurn(Bone bone) {
@@ -55,10 +52,10 @@ public class Player implements Playable{
         if (leftSnakeConnect == bone.getDown()) {
             return new Turn(this, LinkType.LEFT, bone);
         } else if (leftSnakeConnect == bone.getUp()) {
-            bone.reverse();
+//            bone.reverse();
             return new Turn(this, LinkType.LEFT, bone);
         } else if (rightSnakeConnect == bone.getDown()) {
-            bone.reverse();
+//            bone.reverse();
             return new Turn(this, LinkType.RIGHT, bone);
         } else if (rightSnakeConnect == bone.getUp()) {
             return new Turn(this, LinkType.RIGHT, bone);
