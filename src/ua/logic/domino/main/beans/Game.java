@@ -1,5 +1,7 @@
 package ua.logic.domino.main.beans;
 
+import ua.logic.domino.main.beans.realisation.PlayerDummy;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,25 +19,28 @@ public class Game {
         init();
     }
 
-    public void addBoneToSnake(Player player, Snake snake, Bone bone) {
-        snake.addBone(bone);
+    public boolean addBoneToSnake(Player player, Bone bone) {
+        if (!snake.addBone(bone)) {
+            return false;
+        }
         player.getHand().remove(bone);
+        return true;
     }
 
     public void playFirst() {
         Player player = getFirst();
-        addBoneToSnake(player, snake, player.getMinBone());
+        addBoneToSnake(player, player.getMinBone());
     }
 
     public void play() {
         playFirst();
-        for (Player player : playerIterable) {
+        for (PlayerDummy player : playerIterable) {
             if (isFinish()) {
                 break;
             }
             Bone bone = null;
             while (bone == null && !isHiddenEmpty()) {
-                bone = player.play();
+                bone = player.play(snake);
                 if (bone == null) {
                     player.addBoneToHand(takeBone());
                 }
@@ -43,7 +48,7 @@ public class Game {
             if (bone == null) {
                 continue;
             }
-            if (!snake.addBone(bone)) {
+            if (!addBoneToSnake(player, bone)) {
                 throw new IllegalStateException();
             }
             turns.add(new Turn(player, bone));//TODO it's Observer
@@ -53,10 +58,6 @@ public class Game {
     }
 
     private void init() {
-        for (Player player : players) {
-            player.setGame(this);
-        }
-
         playerIterable = new PlayerIterable(players, getFirst());
     }
 
