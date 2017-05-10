@@ -1,4 +1,4 @@
-package ua.logic.domino.main.beans;
+package main.java.ua.logic.domino.beans;
 
 import java.util.ArrayList;
 import java.util.Arrays;

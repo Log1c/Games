@@ -1,4 +1,4 @@
-package ua.logic.domino.main.beans;
+package main.java.ua.logic.domino.beans;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,7 @@ public abstract class Player {
     public String name = "";
     public List<Bone> hand = new ArrayList<>(7);
 
-    protected abstract Bone play(Snake snake);
+    protected abstract Bone getBoneFromHand(Snake snake);
 
     List<Bone> getHand() {
         return hand;

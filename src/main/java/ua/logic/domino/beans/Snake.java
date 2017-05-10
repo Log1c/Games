@@ -1,21 +1,20 @@
-package ua.logic.domino.main.beans;
+package main.java.ua.logic.domino.beans;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Snake {
-    private List<Bone> snake = new ArrayList<>();//its linkedList
+    private Deque<Bone> snake = new LinkedList<>();
     private Map<Integer, Integer> sumBones = new HashMap<>(Bone.values().length);
 
     public boolean isFish() {
-        for (Integer sumBone : sumBones.values()) {
-            if (Bone.MAX_BONE == sumBone) {
-                return true;
+        Set<Integer> valuesWithFish = new HashSet<>();
+        for (Integer bone : sumBones.keySet()) {
+            if (Bone.MAX_BONE == sumBones.get(bone)) {
+                valuesWithFish.add(bone);
             }
         }
-        return false;
+
+        return valuesWithFish.containsAll(Arrays.asList(getLeftConnect(), getRightConnect()));
     }
 
     public Bone getLeftBone() {
@@ -23,7 +22,7 @@ public class Snake {
             return null;
         }
 
-        return snake.get(0);
+        return snake.getFirst();
     }
 
     public Bone getRightBone() {
@@ -31,7 +30,7 @@ public class Snake {
             return null;
         }
 
-        return snake.get(snake.size() - 1);
+        return snake.getLast();
     }
 
     public int getLeftConnect() {
@@ -61,10 +60,10 @@ public class Snake {
         }
 
         if (snake.isEmpty() || getRightConnect() == connector) {
-            snake.add(bone);
+            snake.addLast(bone);
         } else if (getLeftConnect() == connector) {
             bone.reverse();
-            snake.add(0, bone);
+            snake.addFirst(bone);
         }
 
         addToFish(bone);
@@ -89,10 +88,6 @@ public class Snake {
         } else {
             sumBones.put(down, 1);
         }
-    }
-
-    public boolean isEmpty() {
-        return snake.isEmpty();
     }
 
     @Override

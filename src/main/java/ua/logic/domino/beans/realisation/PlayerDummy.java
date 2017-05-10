@@ -1,8 +1,8 @@
-package ua.logic.domino.main.beans.realisation;
+package main.java.ua.logic.domino.beans.realisation;
 
-import ua.logic.domino.main.beans.Bone;
-import ua.logic.domino.main.beans.Player;
-import ua.logic.domino.main.beans.Snake;
+import main.java.ua.logic.domino.beans.Bone;
+import main.java.ua.logic.domino.beans.Player;
+import main.java.ua.logic.domino.beans.Snake;
 
 import java.util.List;
 
@@ -12,8 +12,8 @@ public class PlayerDummy extends Player {
         this.hand = hand;
     }
 
-
-    public Bone play(Snake snake) {
+    @Override
+    public Bone getBoneFromHand(Snake snake) {
         for (Bone handBone : hand) {
             Bone bone = getTurn(snake, handBone);
             if (bone != null) {

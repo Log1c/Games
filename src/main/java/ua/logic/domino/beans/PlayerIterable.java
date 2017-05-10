@@ -1,6 +1,6 @@
-package ua.logic.domino.main.beans;
+package main.java.ua.logic.domino.beans;
 
-import ua.logic.domino.main.beans.realisation.PlayerDummy;
+import main.java.ua.logic.domino.beans.realisation.PlayerDummy;
 
 import java.util.Iterator;
 import java.util.List;

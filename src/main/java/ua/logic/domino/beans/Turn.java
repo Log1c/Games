@@ -1,4 +1,4 @@
-package ua.logic.domino.main.beans;
+package main.java.ua.logic.domino.beans;
 
 public class Turn {
     private Player player;

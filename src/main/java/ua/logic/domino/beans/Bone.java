@@ -1,4 +1,4 @@
-package ua.logic.domino.main.beans;
+package main.java.ua.logic.domino.beans;
 
 public enum Bone {
     BONE11(1, 1), BONE22(2, 2), BONE33(3, 3), BONE44(4, 4), BONE55(5, 5), BONE66(6, 6), BONE00(0, 0),

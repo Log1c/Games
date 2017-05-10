@@ -1,6 +1,6 @@
-package ua.logic.domino.main.beans;
+package main.java.ua.logic.domino.beans;
 
-import ua.logic.domino.main.beans.realisation.PlayerDummy;
+import main.java.ua.logic.domino.beans.realisation.PlayerDummy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +40,7 @@ public class Game {
             }
             Bone bone = null;
             while (bone == null && !isHiddenEmpty()) {
-                bone = player.play(snake);
+                bone = player.getBoneFromHand(snake);
                 if (bone == null) {
                     player.addBoneToHand(takeBone());
                 }
@@ -67,6 +67,7 @@ public class Game {
 
     public boolean isFinish() {
         if (snake.isFish()) {
+            System.out.println("is fish");
             return true;
         }
 
