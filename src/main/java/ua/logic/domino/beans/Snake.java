@@ -4,22 +4,7 @@ import java.util.*;
 
 public class Snake {
     private Deque<Bone> snake = new LinkedList<>();
-    private Map<Integer, Integer> sumBones = new HashMap<>(Bone.values().length);
-
-    public boolean isFish() {
-        if (snake.isEmpty()) {
-            return false;
-        }
-
-        Set<Integer> valuesWithFish = new HashSet<>();
-        for (Integer bone : sumBones.keySet()) {
-            if (Bone.MAX_BONE == sumBones.get(bone)) {
-                valuesWithFish.add(bone);
-            }
-        }
-
-        return valuesWithFish.containsAll(Arrays.asList(getLeftConnect(), getRightConnect()));
-    }
+    private Fish fish = new Fish();
 
     public Bone getLeftBone() {
         if (snake.size() == 0) {
@@ -70,33 +55,12 @@ public class Snake {
             snake.addFirst(bone);
         }
 
-        addToFish(bone);
+        fish.addBone(bone);
 
         return true;
     }
 
-    private void addToFish(Bone bone) {//TODO it's Observer
-        int up = bone.getUp();
-        int down = bone.getDown();
 
-        if (sumBones.containsKey(up)) {
-            Integer i = sumBones.get(up);
-            sumBones.put(up, i+1);
-        } else {
-            sumBones.put(up, 1);
-        }
-
-        if (up == down) {
-            return;
-        }
-
-        if (sumBones.containsKey(down)) {
-            Integer i = sumBones.get(down);
-            sumBones.put(down, i+1);
-        } else {
-            sumBones.put(down, 1);
-        }
-    }
 
     @Override
     public String toString() {
@@ -106,5 +70,13 @@ public class Snake {
         }
 
         return result;
+    }
+
+    public boolean isFish() {
+        if (snake.isEmpty()) {
+            return false;
+        }
+
+        return fish.isFish(getLeftConnect(), getRightConnect());
     }
 }
