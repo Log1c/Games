@@ -8,7 +8,7 @@ import java.util.List;
 public class Game {
     private Hidden hidden;
     private Snake snake;
-    private List<Player> players = new ArrayList<>();//TODO erase it
+    private List<Player> players = new ArrayList<>();
     private List<Turn> turns = new ArrayList<>();
     private PlayerIterable playerIterable;
 

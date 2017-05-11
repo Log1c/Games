@@ -7,6 +7,10 @@ public class Snake {
     private Map<Integer, Integer> sumBones = new HashMap<>(Bone.values().length);
 
     public boolean isFish() {
+        if (snake.isEmpty()) {
+            return false;
+        }
+
         Set<Integer> valuesWithFish = new HashSet<>();
         for (Integer bone : sumBones.keySet()) {
             if (Bone.MAX_BONE == sumBones.get(bone)) {
@@ -71,7 +75,7 @@ public class Snake {
         return true;
     }
 
-    private void addToFish(Bone bone) {
+    private void addToFish(Bone bone) {//TODO it's Observer
         int up = bone.getUp();
         int down = bone.getDown();
 
@@ -80,6 +84,10 @@ public class Snake {
             sumBones.put(up, i+1);
         } else {
             sumBones.put(up, 1);
+        }
+
+        if (up == down) {
+            return;
         }
 
         if (sumBones.containsKey(down)) {
