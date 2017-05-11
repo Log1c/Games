@@ -6,24 +6,8 @@ public class Snake {
     private Deque<Bone> snake = new LinkedList<>();
     private Fish fish = new Fish();
 
-    public Bone getLeftBone() {
-        if (snake.size() == 0) {
-            return null;
-        }
-
-        return snake.getFirst();
-    }
-
-    public Bone getRightBone() {
-        if (snake.size() == 0) {
-            return null;
-        }
-
-        return snake.getLast();
-    }
-
     public int getLeftConnect() {
-        Bone bone = getLeftBone();
+        Bone bone = snake.getFirst();
         if (bone == null) {
             throw new IllegalStateException();
         }
@@ -32,7 +16,7 @@ public class Snake {
     }
 
     public int getRightConnect() {
-        Bone bone = getRightBone();
+        Bone bone = snake.getLast();
         if (bone == null) {
             throw new IllegalStateException();
         }
@@ -44,7 +28,8 @@ public class Snake {
         //connector only getUp()
         int connector = bone.getUp();
 
-        if (!snake.isEmpty() && getLeftConnect() != connector && getRightConnect() != connector) {
+        if (!snake.isEmpty() && getLeftConnect() != connector
+                && getRightConnect() != connector) {
             return false;
         }
 
@@ -56,7 +41,6 @@ public class Snake {
         }
 
         fish.addBone(bone);
-
         return true;
     }
 

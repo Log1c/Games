@@ -1,6 +1,9 @@
 package main.java.ua.logic.domino;
 
-import main.java.ua.logic.domino.beans.*;
+import main.java.ua.logic.domino.beans.Game;
+import main.java.ua.logic.domino.beans.Hidden;
+import main.java.ua.logic.domino.beans.Player;
+import main.java.ua.logic.domino.beans.Snake;
 import main.java.ua.logic.domino.beans.realisation.PlayerDummy;
 
 import java.util.ArrayList;
@@ -10,8 +13,8 @@ public class Main {
     public static void main(String[] args) {
         Hidden hidden = new Hidden();
         Snake snake = new Snake();
-        PlayerDummy player1 = new PlayerDummy("Smit", hidden.getStartHand());
-        PlayerDummy player2 = new PlayerDummy("Neo", hidden.getStartHand());
+        Player player1 = new PlayerDummy("Smit", hidden.getStartHand());
+        Player player2 = new PlayerDummy("Neo", hidden.getStartHand());
         List<Player> players = new ArrayList<>();
 
         players.add(player1);

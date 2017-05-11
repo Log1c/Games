@@ -76,21 +76,7 @@ public class SnakeTest {
 
         Assert.assertTrue(snake.isFish());
     }
-
-    @Test
-    void getLeftBone() {
-        Snake snake = new Snake();
-
-        Assert.assertTrue(snake.getLeftBone() == null);
-    }
-
-    @Test
-    void getRightBone() {
-        Snake snake = new Snake();
-
-        Assert.assertTrue(snake.getRightBone() == null);
-    }
-
+    
     @Test
     void getLeftConnect() {
         Snake snake = new Snake();

@@ -3,6 +3,8 @@ package main.java.ua.logic.domino.beans;
 import java.util.*;
 
 public class Fish {
+    public static final String fishText = "is fish";
+
     private Map<Integer, Integer> sumBones = new HashMap<>(Bone.values().length);
 
     public boolean isFish(int leftConnect, int rightConnect) {

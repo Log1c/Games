@@ -9,7 +9,6 @@ public class Game {
     private Hidden hidden;
     private Snake snake;
     private List<Player> players = new ArrayList<>();
-    private List<Turn> turns = new ArrayList<>();
     private PlayerIterable playerIterable;
 
     public Game(Hidden hidden, Snake snake, List<Player> players) {
@@ -51,7 +50,7 @@ public class Game {
             if (!addBoneToSnake(player, bone)) {
                 throw new IllegalStateException();
             }
-            turns.add(new Turn(player, bone));//TODO it's Observer
+            //TODO it's Logger
         }
         System.out.println(snake);
         printScores();
@@ -67,7 +66,7 @@ public class Game {
 
     public boolean isFinish() {
         if (snake.isFish()) {
-            System.out.println("is fish");
+            System.out.println(Fish.fishText);
             return true;
         }
 
