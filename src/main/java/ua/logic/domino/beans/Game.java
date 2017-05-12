@@ -30,6 +30,8 @@ public class Game {
 
     public void playFirst() {
         Player player = getFirst();
+        log.info("first is " + player.toString());
+
         addBoneToSnake(player, player.getMinBone());
     }
 
@@ -88,12 +90,8 @@ public class Game {
                 firstPlayer = player;
             }
         }
-//        System.out.println("first is " + firstPlayer);
-        return firstPlayer;
-    }
 
-    public Snake getSnake() {
-        return snake;
+        return firstPlayer;
     }
 
     public boolean isHiddenEmpty() {
