@@ -4,12 +4,14 @@ import main.java.ua.logic.domino.beans.realisation.PlayerDummy;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class Game {
     private Hidden hidden;
     private Snake snake;
     private List<Player> players = new ArrayList<>();
     private PlayerIterable playerIterable;
+    private static Logger log = Logger.getLogger(Game.class.getName());
 
     public Game(Hidden hidden, Snake snake, List<Player> players) {
         this.hidden = hidden;
@@ -50,9 +52,8 @@ public class Game {
             if (!addBoneToSnake(player, bone)) {
                 throw new IllegalStateException();
             }
-            //TODO it's Logger
+            log.info(snake.toString());
         }
-        System.out.println(snake);
         printScores();
     }
 
@@ -66,7 +67,8 @@ public class Game {
 
     public boolean isFinish() {
         if (snake.isFish()) {
-            System.out.println(Fish.fishText);
+            log.info(Fish.fishText);
+
             return true;
         }
 
@@ -115,7 +117,7 @@ public class Game {
 
     public void printScores() {
         for (Player player : players) {
-            System.out.println(player.toString() + ": " + getScore(player));
+            log.info(player.toString() + ": " + getScore(player));
         }
     }
 }

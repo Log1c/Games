@@ -6,11 +6,20 @@ import main.java.ua.logic.domino.beans.Player;
 import main.java.ua.logic.domino.beans.Snake;
 import main.java.ua.logic.domino.beans.realisation.PlayerDummy;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.LogManager;
 
 public class Main {
     public static void main(String[] args) {
+        try {
+            LogManager.getLogManager().readConfiguration(
+                    Main.class.getResourceAsStream("/logging.properties"));
+        } catch (IOException e) {
+            System.err.println("Could not setup logger configuration: " + e.toString());
+        }
+
         Hidden hidden = new Hidden();
         Snake snake = new Snake();
         Player player1 = new PlayerDummy("Smit", hidden.getStartHand());
