@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Player {
-    public String name = "";
-    public List<Bone> hand = new ArrayList<>(7);
+    protected String name = "";
+    protected List<Bone> hand = new ArrayList<>(7);
 
     protected abstract Bone getBoneFromHand(Snake snake);
 
@@ -27,7 +27,7 @@ public abstract class Player {
         return name;
     }
 
-    public void addBoneToHand(Bone bone) {
+    protected void addBoneToHand(Bone bone) {
         hand.add(bone);
     }
 }

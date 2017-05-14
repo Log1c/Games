@@ -20,7 +20,7 @@ public class Game {
         init();
     }
 
-    public boolean addBoneToSnake(Player player, Bone bone) {
+    private boolean addBoneToSnake(Player player, Bone bone) {
         if (!snake.addBone(bone)) {
             return false;
         }
@@ -28,7 +28,7 @@ public class Game {
         return true;
     }
 
-    public void playFirst() {
+    private void playFirst() {
         Player player = getFirst();
         log.info("first is " + player.toString());
 
@@ -67,7 +67,7 @@ public class Game {
         return hidden.getBone();
     }
 
-    public boolean isFinish() {
+    private boolean isFinish() {
         if (snake.isFish()) {
             log.info(Fish.fishText);
 
