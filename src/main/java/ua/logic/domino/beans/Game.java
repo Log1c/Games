@@ -42,11 +42,12 @@ public class Game {
                 break;
             }
             Bone bone = null;
-            while (bone == null && !isHiddenEmpty()) {
+            while (bone == null) {
                 bone = player.getBoneFromHand(snake);
-                if (bone == null) {
-                    player.addBoneToHand(takeBone());
+                if (bone != null || isHiddenEmpty()) {
+                    break;
                 }
+                player.addBoneToHand(takeBone());
             }
             if (bone == null) {
                 continue;

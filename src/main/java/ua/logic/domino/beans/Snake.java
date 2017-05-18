@@ -3,25 +3,17 @@ package main.java.ua.logic.domino.beans;
 import java.util.*;
 
 public class Snake {
+    private int leftConnect = -1;
+    private int rightConnect = -1;
     private Deque<Bone> snake = new LinkedList<>();
     private Fish fish = new Fish();
 
     public int getLeftConnect() {
-        Bone bone = snake.getFirst();
-        if (bone == null) {
-            throw new IllegalStateException();
-        }
-
-        return bone.getUp();
+        return leftConnect;
     }
 
     public int getRightConnect() {
-        Bone bone = snake.getLast();
-        if (bone == null) {
-            throw new IllegalStateException();
-        }
-
-        return bone.getDown();
+        return rightConnect;
     }
 
     public boolean addBone(Bone bone) {
@@ -35,9 +27,11 @@ public class Snake {
 
         if (snake.isEmpty() || getRightConnect() == connector) {
             snake.addLast(bone);
+            rightConnect = bone.getDown();
         } else if (getLeftConnect() == connector) {
             bone.reverse();
             snake.addFirst(bone);
+            leftConnect = bone.getUp();
         }
 
         fish.addBone(bone);
