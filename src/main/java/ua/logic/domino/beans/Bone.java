@@ -11,12 +11,18 @@ public enum Bone {
 
     private int up;
     private int down;
+    private final int cost;
+    private final boolean isDouble;
+    private final boolean isDummy;
 
     public static int MAX_BONE = 6 + 1;
 
     Bone(int up, int down) {
         this.up = up;
         this.down = down;
+        cost = up + down;
+        isDouble = up == down;
+        isDummy = isDouble() || contains(0);
     }
 
     public int getUp() {
@@ -38,19 +44,19 @@ public enum Bone {
     }
 
     public int getCost() {
-        return up + down;
+        return cost;
     }
 
     public boolean isDouble() {
-        return getDown() == getUp();
+        return isDouble;
     }
 
     public boolean isDummy() {
-        return isDouble() || contains(0);
+        return isDummy;
     }
 
     @Override
     public String toString() {
-        return "" + up + down + " ";
+        return "" + up + down;
     }
 }
